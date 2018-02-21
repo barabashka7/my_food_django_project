@@ -16,12 +16,9 @@ class Recipe(models.Model):
 
 class CustomUser(User):
     objects = UserManager()
-    place = models.OneToOneField(
-        UserFood,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
+    ingredients = []
 
-class UserFood(models.Model):
-    my_food = ?
-
+class Ingredient(models.Model):
+    food = models.CharField(max_length=35)
+    kol_of_food = models.CharField(max_length=10)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
