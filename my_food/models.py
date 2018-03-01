@@ -17,9 +17,9 @@ class Recipe(models.Model):
 """class UserIngredient(models.Model):
     food = models.CharField(max_length=35)
     kol_of_food = models.IntegerField()
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='ingredients')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ingredients')
 
 class RecipeIngredient(models.Model):
     food = models.CharField(max_length=35)
     kol_of_food = models.IntegerField()
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='ingredients')"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ingredients')"""

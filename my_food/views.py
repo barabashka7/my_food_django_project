@@ -2,18 +2,33 @@ from django.shortcuts import render,redirect, get_object_or_404
 from .forms import SignUpForm, RecipeForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from .models import Recipe
 from django.http import HttpResponseNotFound
 
 
 @login_required
-def edit_food(request,user_id):
+def edit_food(request):
     return render(request, 'my_food/food.html', {})
 
 @login_required
-def show_recipes(request,user_id):
-    pass
+def show_recipes(request):
+     pass
+
+@login_required
+def edit_recipe(request, recipe_id):
+    user=request.user
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    if recipe.author==user:
+        if request.method == "POST":
+            form = RecipeForm(request.POST, instance=recipe)
+            if form.is_valid():
+                recipe = form.save()
+                recipe.author = user
+                recipe.save()
+                return redirect('recipe', recipe_id=recipe.pk)
+        else:
+            form = RecipeForm(instance=recipe)
+        return render(request, "my_food/edit_recipe.html", {'form': form})
 
 @login_required
 def recipe(request, recipe_id):
@@ -24,18 +39,18 @@ def recipe(request, recipe_id):
     return render(request,'my_food/recipe.html',{'recipe':recipe})
 
 @login_required
-def add_recipe(request, user_id):
-    #user = User.objects.filter()
+def add_recipe(request):
+    user = request.user
     if request.method == 'POST':
         form = RecipeForm(request.POST)
         if(form.is_valid()):
             recipe = form.save()
-            #recipe.author = user
+            recipe.author = user
             recipe.save()
-            return redirect('recipe')
+            return redirect('recipe',recipe_id=recipe.pk)
     else:
         form = RecipeForm()
-    return(request,'my_food/add_recipe.html',{'form':form})
+    return render(request,'my_food/add_recipe.html',{'form':form})
 
 def signup(request):
     if request.method == 'POST':
