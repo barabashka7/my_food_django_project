@@ -1,18 +1,34 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from .forms import SignUpForm, RecipeForm
+from .forms import SignUpForm, RecipeForm, UserIngredientForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Recipe
+from .models import Recipe,UserIngredient
 from django.http import HttpResponseNotFound
 
 
-@login_required
-def edit_food(request):
-    return render(request, 'my_food/food.html', {})
+def index(request):
+    return render(request, 'my_food/index.html',{})
 
 @login_required
-def show_recipes(request):
-     pass
+def edit_food(request):
+    user = request.user
+    ingredients = UserIngredient.objects.filter(user=user)
+    if request.method == "POST":
+        form = UserIngredientForm(request.POST)
+        form.instance.user = user
+        if(form.is_valid()):
+            ingredient = form.save()
+            ingredient.save()
+            return render(request, 'my_food/food.html', {'ingredients':ingredients, 'form':form})
+    else: form = UserIngredientForm()
+    return render(request, 'my_food/food.html', {'ingredients':ingredients, 'form':form})
+
+@login_required
+def recipes(request):
+    user = request.user
+    ingredients = UserIngredient.objects.filter(user=user)
+    recipes=Recipe.objects.all()
+    return render(request, 'my_food/recipes.html',{'recipes':recipes})
 
 @login_required
 def edit_recipe(request, recipe_id):
@@ -40,12 +56,10 @@ def recipe(request, recipe_id):
 
 @login_required
 def add_recipe(request):
-    user = request.user
     if request.method == 'POST':
         form = RecipeForm(request.POST)
         if(form.is_valid()):
             recipe = form.save()
-            recipe.author = user
             recipe.save()
             return redirect('recipe',recipe_id=recipe.pk)
     else:

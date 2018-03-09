@@ -6,5 +6,5 @@ urlpatterns = [
     path('admin/',admin.site.urls),
     path('', include('my_food.urls')),
     path('login/', auth_views.login, {'template_name': 'my_food/login.html'}, name='login'),
-    path('logout/', auth_views.logout, {'next_page': 'signup'}, name='logout'),
+    path('logout/', auth_views.logout, {'next_page': 'index'}, name='logout'),
 ]

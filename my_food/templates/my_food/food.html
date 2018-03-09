@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-HI!
-</body>
-</html>
+{% extends "my_food/base.html" %}
+{% block title %} My_food - Мои продукты {% endblock %}
+{% block content %}
+    <div class="food-form">
+        <h2>Добавить продукт</h2>
+        <form class="form-signin" action='.' method="POST"> {% csrf_token %}
+            <input class="form-control" type="text" placeholder="введите название продукта" name="food">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Добавить</button>
+        </form>
+    </div>
+    <div class="ing">
+        <h2>Продукты</h2>
+        <ul class="list-group list-group-flush">
+            {% for ingredient in ingredients %}
+                <li class="list-group-item">
+                    {{ ingredient.food }}
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

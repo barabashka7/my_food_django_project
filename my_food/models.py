@@ -6,20 +6,14 @@ from django.contrib.auth.models import User
 
 class Recipe(models.Model):
     title = models.CharField(max_length=75)
-    description = models.CharField(max_length=300)
+    description = models.CharField(max_length=400)
     text_recipe = models.TextField()
-    img_main = models.ImageField()
-    img1 = models.ImageField(upload_to='photo/', blank=True)
-    img2 = models.ImageField(upload_to='photo/', blank=True)
-    img3 = models.ImageField(upload_to='photo/', blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipes')
+    ingredients = models.TextField(default="")
+    img_main = models.ImageField(upload_to='photo/', blank=True,height_field=None, width_field=None)
+    img1 = models.ImageField(upload_to='photo/', blank=True,height_field=None, width_field=None)
+    img2 = models.ImageField(upload_to='photo/', blank=True,height_field=None, width_field=None)
+    img3 = models.ImageField(upload_to='photo/', blank=True,height_field=None, width_field=None)
 
-"""class UserIngredient(models.Model):
+class UserIngredient(models.Model):
     food = models.CharField(max_length=35)
-    kol_of_food = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ingredients')
-
-class RecipeIngredient(models.Model):
-    food = models.CharField(max_length=35)
-    kol_of_food = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ingredients')"""
