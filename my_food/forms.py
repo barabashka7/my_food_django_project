@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Recipe, UserIngredient
+from .models import Recipe, UserIngredient,Comment
 
 
 class SignUpForm(UserCreationForm):
@@ -21,3 +21,8 @@ class UserIngredientForm(forms.ModelForm):
     class Meta:
         model = UserIngredient
         fields = ('food',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text',)

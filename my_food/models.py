@@ -17,3 +17,8 @@ class Recipe(models.Model):
 class UserIngredient(models.Model):
     food = models.CharField(max_length=35)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ingredients')
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    text = models.TextField(max_length=250, blank=False)

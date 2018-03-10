@@ -2,6 +2,8 @@
 {% block title %} My_food - Рецепты {% endblock %}
 {% block content %}
 <div class="content">
+    <h2>Вы можете приготовить: </h2>
+    {% if recipes %}
     {% for recipe in recipes %}
         <div class="recipes-a">
             <div class="list-group">
@@ -14,5 +16,8 @@
         </div>
 
     {% endfor %}
+    {% else %}
+        <p>Нет доступных рецептов. Добавте больше продуктов</p>
+    {% endif %}
 </div>
 {% endblock %}
