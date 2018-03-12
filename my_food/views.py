@@ -10,6 +10,22 @@ def index(request):
     return render(request, 'my_food/index.html',{})
 
 @login_required
+def prof(request):
+    return render(request,'my_food/prof.html',{})
+
+@login_required
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if(form.is_valid()):
+            recipe = form.save()
+            recipe.save()
+            return redirect('recipe',recipe_id=recipe.pk)
+    else:
+        form = RecipeForm()
+    return render(request,'my_food/add_recipe.html',{'form':form})
+
+@login_required
 def edit_food(request):
     user = request.user
     ingredients = UserIngredient.objects.filter(user=user)
@@ -22,6 +38,13 @@ def edit_food(request):
             return redirect('edit_food')
     else: form = UserIngredientForm()
     return render(request, 'my_food/food.html', {'ingredients':ingredients, 'form':form})
+
+@login_required
+def ingredient(request, ingredient_id):
+    ingredient=UserIngredient.objects.get(id=ingredient_id)
+    if request.user == ingredient.user:
+        ingredient.delete()
+        return redirect('edit_food')
 
 @login_required
 def recipes(request):
@@ -79,18 +102,6 @@ def recipe(request, recipe_id):
     return render(request,'my_food/recipe.html',{'recipe':recipe,
                                                  'comments':comments,
                                                  'form':form})
-
-@login_required
-def add_recipe(request):
-    if request.method == 'POST':
-        form = RecipeForm(request.POST)
-        if(form.is_valid()):
-            recipe = form.save()
-            recipe.save()
-            return redirect('recipe',recipe_id=recipe.pk)
-    else:
-        form = RecipeForm()
-    return render(request,'my_food/add_recipe.html',{'form':form})
 
 def signup(request):
     if request.method == 'POST':

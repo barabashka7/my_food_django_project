@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="content">
-        <form action='.' method="POST"> {% csrf_token %}
+        <form action='.' method="POST" enctype="multipart/form-data"> {% csrf_token %}
                 <div class="form-group">
                     <label for="title">Название</label>
                     <input type="text" class="form-control" id="title" placeholder="Название" name="title">

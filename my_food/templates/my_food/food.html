@@ -15,9 +15,11 @@
             {% for ingredient in ingredients %}
                 <li class="list-group-item">
                     {{ ingredient.food }}
-                    <button type="button" class="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <a href="{% url 'ingredient' ingredient_id=ingredient.id %}">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </a>
                 </li>
             {% endfor %}
         </ul>
