@@ -23,7 +23,6 @@
         {% for recipe in recipes %}
             <div class="recipes-a">
                 <div class="list-group edit-a">
-                    <a href="{% url 'edit_recipe' recipe_id=recipe.id %}">Редактировать</a>
                     <a class="list-group-item list-group-item-action" href="{% url 'recipe' recipe_id=recipe.id %}">
                         <h2>{{ recipe.title }}</h2>
                         <img class="rounded float-left" src="{{ MEDIA_URL }}{{ recipe.img_main.url }}" style="width: 200px; height: 200px;">

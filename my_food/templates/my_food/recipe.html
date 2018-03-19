@@ -2,12 +2,7 @@
 {% block title %} My_food - {{ recipe.title }} {% endblock %}
 {% block content %}
     <div class="content">
-        <div>
-            {% if user == recipe.author %}<a href="{% url 'edit_recipe' recipe_id=recipe.id %}">Редактировать</a>
-
-            {% endif %}
-            <h1>{{ recipe.title }}</h1>
-        </div>
+        <h1>{{ recipe.title }}</h1>
         <div class="ingredients">
             <img class="img-thumbnail" src="{{ MEDIA_URL }}{{ recipe.img_main.url }}" style="width: 200px; height: 200px;">
         </div>
@@ -48,6 +43,5 @@
                 {% endif %}
             </div>
         </div>
-
     </div>
 {% endblock %}

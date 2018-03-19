@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Recipe, UserIngredient, Comment, CustomUser
 from django.http import HttpResponseNotFound
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.utils import timezone
 
 def index(request):
     return render(request, 'my_food/index.html',{})
@@ -31,8 +31,7 @@ def prof(request):
                                                'recipes': recipes,
                                                'kol_of_ingredients': kol_of_ingredients,
                                                'kol_of_recipes': kol_of_recipes,
-                                               'kol_of_comments': kol_of_comments
-                                               })
+                                               'kol_of_comments': kol_of_comments})
 
 @login_required
 def add_recipe(request):
@@ -141,6 +140,7 @@ def signup(request):
             login(request, user)
             custom_user=CustomUser()
             custom_user.user=user
+            custom_user.registration_date=timezone.now()
             return redirect('prof')
     else:
         form = SignUpForm()
