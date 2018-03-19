@@ -83,6 +83,18 @@
         .comment label{
             font-size: 18pt;
         }
+        .change_password input{
+            margin-top: 1%;
+        }
+        .edit-a{
+            margin-bottom: 3%;
+        }
+        .form-group h6{
+            font-size: 11pt;
+        }
+        .your_recipes{
+            margin-top: 5%;
+        }
     </style>
 </head>
 <body>
@@ -95,7 +107,10 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'edit_food' %}">Мои продукты <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{% url 'prof' %}">Профиль<span class="sr-only">(current)</span></a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'edit_food' %}">Мои продукты</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'recipes' %}">Рецепты</a>

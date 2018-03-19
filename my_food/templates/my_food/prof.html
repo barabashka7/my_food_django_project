@@ -1,11 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; URL={% url 'edit_food' %}" />
-    <title>Title</title>
-</head>
-<body>
+{% extends "my_food/base.html" %}
+{% block title %} My_food - профиль {% endblock %}
+{% block content %}
+    <div class="content">
+        <h1 class="h3 mb-3 font-weight-normal">Смена пароля</h1>
+        <form class="change_password" action='.' method="POST"> {% csrf_token %}
+            <label for="inputPassword" class="sr-only">Старый пароль</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Старый пароль" required="" name="old_password">
+            <label for="inputPassword" class="sr-only">Новый пароль</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Новый пароль" required="" name="new_password1">
+            <label for="inputPassword" class="sr-only">Подтвердите пароль</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Подтвердите пароль" required="" name="new_password2">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Сохранить</button>
+        </form>
 
-</body>
-</html>
+        <h1 class="h3 mb-3 font-weight-normal">Статистика </h1>
+        <p>Добавлено рецептов: {{ kol_of_recipes }}</p>
+        <p>Количестов продуктов: {{ kol_of_ingredients }}</p>
+        <p>Оставленно комментариев: {{ kol_of_comments }}</p>
+
+        <h1 class="h3 mb-3 font-weight-normal your_recipes">Ваши рецепты </h1>
+        {% if recipes %}
+        {% for recipe in recipes %}
+            <div class="recipes-a">
+                <div class="list-group edit-a">
+                    <a href="{% url 'edit_recipe' recipe_id=recipe.id %}">Редактировать</a>
+                    <a class="list-group-item list-group-item-action" href="{% url 'recipe' recipe_id=recipe.id %}">
+                        <h2>{{ recipe.title }}</h2>
+                        <img class="rounded float-left" src="{{ MEDIA_URL }}{{ recipe.img_main.url }}" style="width: 200px; height: 200px;">
+                        <p>{{ recipe.description }}</p>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            <p>Вы не добавили ни одного рецепта</p>
+        {% endif %}
+    </div>
+{% endblock %}
