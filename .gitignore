@@ -1,5 +1,15 @@
-# Text backup files
-*.bak
+*.pyc
+*~
+__pycache__
 
-#Database
-*.sqlite3
+# virtualenv
+myvenv
+
+# Django, DB
+db.sqlite3
+/static
+.DS_Store
+
+# pyCharm
+.idea/
+ 

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,7 +98,8 @@
         }
     </style>
 </head>
-<body>
+<body background="{% static 'my_food/background.png' %}">
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">My_food</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,6 +124,7 @@
     </div>
         <a href="{% url 'logout' %}"><button class="btn btn-outline-info my-2 my-sm-0" type="submit">Выход</button></a>
   </nav>
+
 
 {% block content %}
 {% endblock %}
