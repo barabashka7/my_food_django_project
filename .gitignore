@@ -3,7 +3,7 @@
 __pycache__
 
 # virtualenv
-myvenv
+venv
 
 # Django, DB
 db.sqlite3
