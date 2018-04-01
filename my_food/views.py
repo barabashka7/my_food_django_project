@@ -8,7 +8,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.utils import timezone
 
 def index(request):
-    return render(request, 'my_food/index.html',{})
+    if request.user.is_authenticated:
+        authentication = True
+    else:
+        authentication = False
+    return render(request, 'my_food/index.html',{'authentication': authentication})
 
 @login_required
 def prof(request):

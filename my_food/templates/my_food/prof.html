@@ -18,19 +18,32 @@
         <p>Количестов продуктов: {{ kol_of_ingredients }}</p>
         <p>Оставленно комментариев: {{ kol_of_comments }}</p>
 
+
         <h1 class="h3 mb-3 font-weight-normal your_recipes">Ваши рецепты </h1>
         {% if recipes %}
-        {% for recipe in recipes %}
-            <div class="recipes-a">
-                <div class="list-group edit-a">
-                    <a class="list-group-item list-group-item-action" href="{% url 'recipe' recipe_id=recipe.id %}">
-                        <h2>{{ recipe.title }}</h2>
-                        <img class="rounded float-left" src="{{ MEDIA_URL }}{{ recipe.img_main.url }}" style="width: 200px; height: 200px;">
-                        <p>{{ recipe.description }}</p>
-                    </a>
+            <div class="row">
+                {% for recipe in recipes %}
+            <div class="col-md-4">
+            <a href="{% url 'recipe' recipe_id=recipe.id %}">
+                <div class="card mb-4 box-shadow">
+                    <h3>{{ recipe.title }}</h3>
+                    <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="{{ MEDIA_URL }}{{ recipe.img_main.url }}" data-holder-rendered="true">
+                    <!--
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
+            </a>
             </div>
-        {% endfor %}
+
+            {% endfor %}
+        </div>
         {% else %}
             <p>Вы не добавили ни одного рецепта</p>
         {% endif %}
