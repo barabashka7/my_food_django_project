@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -14,10 +14,10 @@ class Recipe(models.Model):
     description = models.CharField(max_length=400)
     text_recipe = models.TextField()
     ingredients = models.TextField(default="")
-    img_main = models.ImageField(upload_to='photo/' ,height_field=None, width_field=None)
-    img1 = models.ImageField(upload_to='photo/' ,height_field=None, width_field=None)
-    img2 = models.ImageField(upload_to='photo/' ,height_field=None, width_field=None)
-    img3 = models.ImageField(upload_to='photo/' ,height_field=None, width_field=None)
+    img_main = CloudinaryField('image')
+    img1 = CloudinaryField('image')
+    img2 = CloudinaryField('image')
+    img3 = CloudinaryField('image')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class UserIngredient(models.Model):

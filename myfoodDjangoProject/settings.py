@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '6ob=*$46h$7cy4=x-bk0bp3piwr3+1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
-DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+DEBUG = False
 
 ALLOWED_HOSTS = ['my-food-project.herokuapp.com','127.0.0.1']
 
