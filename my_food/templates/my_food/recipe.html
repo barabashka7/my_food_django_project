@@ -18,6 +18,9 @@
             <img class="rounded float-left"  src="{{ MEDIA_URL }}{{ recipe.img1.url }}" style="width: 200px; height: 200px;">
             <img class="rounded float-left"  src="{{ MEDIA_URL }}{{ recipe.img2.url }}" style="width: 200px; height: 200px;">
             <img class="rounded float-left"  src="{{ MEDIA_URL }}{{ recipe.img3.url }}" style="width: 200px; height: 200px;">
+            {% if can_delete %}
+            <a href="{% url 'delete_recipe' recipe_id=recipe.id %}"><button type="button" class="btn btn-danger">Удалить</button></a>
+            {% endif %}
         </div>
         <div class="comment">
             <form action='.' method="POST"> {% csrf_token %}

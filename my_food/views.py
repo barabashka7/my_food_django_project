@@ -54,9 +54,9 @@ def add_recipe(request):
     user = request.user
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
-        form.instance.author = user
         if form.is_valid():
-            recipe = form.save()
+            recipe = form.save(commit=False)
+            recipe.author=user
             recipe.save()
             return redirect('recipe',recipe_id=recipe.pk)
     else:
@@ -83,6 +83,13 @@ def ingredient(request, ingredient_id):
     if request.user == ingredient.user:
         ingredient.delete()
         return redirect('edit_food')
+
+@login_required
+def delete_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(id=recipe_id)
+    if request.user == recipe.author:
+        recipe.delete()
+        return redirect('recipes')
 
 @login_required
 def recipes(request):
@@ -117,11 +124,10 @@ def edit_recipe(request, recipe_id):
         api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
     )
     user=request.user
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    recipe = Recipe.objects.get(id=recipe_id)
     if recipe.author == user:
         if request.method == "POST":
             form = RecipeForm(request.POST, request.FILES, instance=recipe)
-            form.instance.author = user
             if form.is_valid():
                 recipe = form.save()
                 recipe.save()
@@ -131,6 +137,7 @@ def edit_recipe(request, recipe_id):
     else:
         return HttpResponseNotFound
     return render(request, "my_food/edit_recipe.html", {'form': form})
+
 
 @login_required
 def recipe(request, recipe_id):
@@ -145,6 +152,10 @@ def recipe(request, recipe_id):
         comments = Comment.objects.filter(recipe__pk=recipe_id)
     except(Recipe.DoesNotExist):
         return HttpResponseNotFound
+    if user == recipe.author:
+        can_delete = True
+    else:
+        can_delete = False
     if request.method=="POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -158,7 +169,8 @@ def recipe(request, recipe_id):
     return render(request,'my_food/recipe.html',{'recipe': recipe,
                                                  'comments': comments,
                                                  'user': user,
-                                                 'form':  form})
+                                                 'form':  form,
+                                                 'can_delete': can_delete})
 
 def signup(request):
     if request.method == 'POST':

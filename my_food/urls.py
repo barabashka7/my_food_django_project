@@ -10,5 +10,6 @@ urlpatterns = [
     path('recipes/', views.recipes,name='recipes'),
     path('', views.index, name='index'),
     path('id<int:ingredient_id>',views.ingredient,name='ingredient'),
-    path('accounts/profile/',views.prof,name='prof')
+    path('accounts/profile/',views.prof,name='prof'),
+    path('id<int:recipe_id>/delete', views.delete_recipe, name='delete_recipe')
 ]
