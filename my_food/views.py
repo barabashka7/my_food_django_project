@@ -9,6 +9,12 @@ from django.utils import timezone
 import cloudinary
 
 
+cloudinary.config(
+        cloud_name = "dq3wehi0w",
+        api_key = "372385666839939",
+        api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
+    )
+
 def index(request):
     if request.user.is_authenticated:
         authentication = True
@@ -18,11 +24,6 @@ def index(request):
 
 @login_required
 def prof(request):
-    cloudinary.config(
-        cloud_name = "dq3wehi0w",
-        api_key = "372385666839939",
-        api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
-    )
     user = request.user
     kol_of_ingredients = UserIngredient.objects.filter(user=user).count()
     recipes = Recipe.objects.filter(author=user)
@@ -46,11 +47,6 @@ def prof(request):
 
 @login_required
 def add_recipe(request):
-    cloudinary.config(
-        cloud_name = "dq3wehi0w",
-        api_key = "372385666839939",
-        api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
-    )
     user = request.user
     if request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
@@ -93,11 +89,6 @@ def delete_recipe(request, recipe_id):
 
 @login_required
 def recipes(request):
-    cloudinary.config(
-        cloud_name = "dq3wehi0w",
-        api_key = "372385666839939",
-        api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
-    )
     user = request.user
     user_ingredients = UserIngredient.objects.filter(user=user)
     ingredients = []
@@ -118,11 +109,6 @@ def recipes(request):
 
 @login_required
 def edit_recipe(request, recipe_id):
-    cloudinary.config(
-        cloud_name = "dq3wehi0w",
-        api_key = "372385666839939",
-        api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
-    )
     user=request.user
     recipe = Recipe.objects.get(id=recipe_id)
     if recipe.author == user:
@@ -141,11 +127,6 @@ def edit_recipe(request, recipe_id):
 
 @login_required
 def recipe(request, recipe_id):
-    cloudinary.config(
-        cloud_name = "dq3wehi0w",
-        api_key = "372385666839939",
-        api_secret = "fwRQzfBenUesrUOuW4eUCpzeBgY"
-    )
     user = request.user
     try:
         recipe = Recipe.objects.get(id=recipe_id)
