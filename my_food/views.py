@@ -115,7 +115,9 @@ def edit_recipe(request, recipe_id):
         if request.method == "POST":
             form = RecipeForm(request.POST, request.FILES, instance=recipe)
             if form.is_valid():
-                recipe = form.save()
+                recipe.delete()
+                recipe = form.save(commit=False)
+                recipe.author=user
                 recipe.save()
                 return redirect('recipe', recipe_id=recipe.pk)
         else:
